@@ -72,26 +72,22 @@ def proc_data_dash(request):
     json_data_table = []
     json_header_table = []
     for i in range(len(att_list)):
-        print(str(att_list[i]))
         json_data_table.append({"data": str(att_list[i])})
         json_header_table.append({"title": str(att_list[i]), "targets": i})
-
     json_cate_info2 = wrapper.get_dataset_info(passed_data_name2 + ".csv")
     att_list2 = json_cate_info2["attribute_list"]
     cat_att_list2 = json_cate_info2["categorical_attributes"]
     key_att_list2 = json_cate_info2['candidate_attributes']
-    for i in range(len(att_list2)):
-        if (str(att_list2[i]) == passed_join_column):
-            continue
-        json_data_table.append({"data": str(att_list2[i])})
-        json_header_table.append({"title": str(att_list2[i]), "targets": i})
-
+    for k in range(len(att_list2)):
+        #if (str(att_list2[k]) == passed_join_column):
+        #    continue
+        json_data_table.append({"data": str(att_list2[k])})
+        json_header_table.append({"title": str(att_list2[k]), "targets": i + k + 1})
     # request information    
     request.session['passed_json_columns'] = json_data_table
     request.session['passed_column_name'] = att_list
     data_type_list = []
     for i in att_list:
-        print(json_cate_info["attribute_datatypes"][i])
         data_type_list.append(json_cate_info["attribute_datatypes"][i])
 
     tuple_n = json_cate_info["number_of_tuples"]

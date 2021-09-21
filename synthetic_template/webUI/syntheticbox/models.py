@@ -55,7 +55,9 @@ class DataAnalyzerUI(object):
         try:
             df1 = pd.read_csv(file_name)
             df2 = pd.read_csv(file_name2)
-            df = pd.merge(df1, df2, how=join_type, on=join_column)
+            # join two DataFrame together
+            df = df1.merge(df2, how=join_type, on=join_column)
+            
             self.input_dataset = df
         except (UnicodeDecodeError, NameError):
             self.input_dataset = pd.read_csv(file_name, encoding='latin1')
